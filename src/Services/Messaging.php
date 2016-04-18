@@ -42,18 +42,22 @@ class Messaging implements MessagingContract
 
     /**
      * Messaging constructor.
-     * @param RestAPI $plivo
+     *
+     * @param Plivo|RestAPI $plivo
      */
     public function __construct(Plivo $plivo)
     {
-        // $this->plivo = new RestAPI(env('PLIVO_AUTH_ID'), env('PLIVO_AUTH_TOKEN'));
         $this->plivo = $plivo;
+        $this->destinationNumber = [];
     }
 
     /**
-     * Send SMS message
+     * Sends SMS message
+     *
      * @return array
-     * @throws \Exception
+     * @throws DestinationSMSNumberIsEmptyException
+     * @throws MessageIsEmptyException
+     * @throws SourceSMSNumberIsEmptyException
      */
     public function sendMessage()
     {
@@ -74,15 +78,38 @@ class Messaging implements MessagingContract
             throw new MessageIsEmptyException('The Message is empty');
         }
 
-        $data = [
-            'src' => $this->sourceNumber,
-            'dst' => $this->destinationNumber,
-            'text' => $this->message,
-            'type' => $this->type
-        ];
+        $data = $this->getMessageData(); 
 
         return $this->plivo->send_message($data);
 
+    }
+
+    /**
+     * Alias for sendMessage
+     *
+     * @return array
+     * @throws DestinationSMSNumberIsEmptyException
+     * @throws MessageIsEmptyException
+     * @throws SourceSMSNumberIsEmptyException
+     */
+    public function send()
+    {
+        return $this->sendMessage();
+    }
+
+    /**
+     * Return Formatted Message Data
+     * 
+     * @return array
+     */
+    public function getMessageData()
+    {
+        return [
+            'src' => $this->sourceNumber,
+            'dst' => $this->getDestinationNumber(),
+            'text' => $this->message,
+            'type' => $this->type
+        ];
     }
 
     /**
@@ -96,6 +123,7 @@ class Messaging implements MessagingContract
 
     /**
      * Get Specific Message Details
+     *
      * @param $uuid
      * @return array
      */
@@ -114,6 +142,7 @@ class Messaging implements MessagingContract
 
     /**
      * Message Setter
+     *
      * @param string $message
      * @return Messaging
      */
@@ -124,7 +153,19 @@ class Messaging implements MessagingContract
     }
 
     /**
+     * Alias for setMessage
+     *
+     * @param $msg
+     * @return Messaging
+     */
+    public function msg($msg)
+    {
+        return $this->setMessage($msg);
+    }
+
+    /**
      * Source Number Setter
+     *
      * @param mixed $sourceNumber
      * @return Messaging
      */
@@ -135,17 +176,52 @@ class Messaging implements MessagingContract
     }
 
     /**
-     * Destination Number Setter
+     * Alias of setSourceNumber
+     *
+     * @param $from
+     * @return Messaging
+     */
+    public function from($from)
+    {
+        return $this->setSourceNumber($from);
+    }
+
+    /**
+     * Destination Number(s) Setter
+     *
      * @param array|string $destinationNumber
      * @return Messaging
      */
     public function setDestinationNumber($destinationNumber)
     {
         if (is_array($destinationNumber)) {
-            $destinationNumber = implode('<', $destinationNumber);
+            foreach($destinationNumber as $number) {
+                array_push($this->destinationNumber, $number);
+            }
+        } else {
+            array_push($this->destinationNumber, $destinationNumber);
         }
-        $this->destinationNumber = $destinationNumber;
+
         return $this;
+    }
+
+    /**
+     * Alias for setDestinationNumber
+     *
+     * @param $to
+     * @return Messaging
+     */
+    public function to($to)
+    {
+        return $this->setDestinationNumber($to);
+    }
+
+    /**
+     * Get destination sms number(s)
+     */
+    public function getDestinationNumber()
+    {
+        return implode('<', $this->destinationNumber);
     }
 
 }
