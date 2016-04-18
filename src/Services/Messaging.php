@@ -52,10 +52,12 @@ class Messaging implements MessagingContract
     }
 
     /**
-     * Send SMS message
+     * Sends SMS message
      *
      * @return array
-     * @throws \Exception
+     * @throws DestinationSMSNumberIsEmptyException
+     * @throws MessageIsEmptyException
+     * @throws SourceSMSNumberIsEmptyException
      */
     public function sendMessage()
     {
@@ -80,6 +82,19 @@ class Messaging implements MessagingContract
 
         return $this->plivo->send_message($data);
 
+    }
+
+    /**
+     * Alias for sendMessage
+     *
+     * @return array
+     * @throws DestinationSMSNumberIsEmptyException
+     * @throws MessageIsEmptyException
+     * @throws SourceSMSNumberIsEmptyException
+     */
+    public function send()
+    {
+        return $this->sendMessage();
     }
 
     /**

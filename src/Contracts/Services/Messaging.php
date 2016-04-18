@@ -2,6 +2,9 @@
 
 namespace Midnite81\Plivo\Contracts\Services;
 
+use Midnite81\Plivo\Exceptions\DestinationSMSNumberIsEmptyException;
+use Midnite81\Plivo\Exceptions\MessageIsEmptyException;
+use Midnite81\Plivo\Exceptions\SourceSMSNumberIsEmptyException;
 use Midnite81\Plivo\Services\Plivo;
 
 interface Messaging
@@ -10,12 +13,24 @@ interface Messaging
     public function __construct(Plivo $plivo);
 
     /**
-     * Send SMS message
+     * Sends SMS message
      *
      * @return array
-     * @throws \Exception
+     * @throws DestinationSMSNumberIsEmptyException
+     * @throws MessageIsEmptyException
+     * @throws SourceSMSNumberIsEmptyException
      */
     public function sendMessage();
+
+    /**
+     * Alias for sendMessage
+     *
+     * @return array
+     * @throws DestinationSMSNumberIsEmptyException
+     * @throws MessageIsEmptyException
+     * @throws SourceSMSNumberIsEmptyException
+     */
+    public function send();
 
     /**
      * Return Formatted Message Data
