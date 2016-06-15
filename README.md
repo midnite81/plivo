@@ -11,6 +11,11 @@ To install through composer include the package in your `composer.json`.
 
 Run `composer install` or `composer update` to download the dependencies or you can run `composer require midnite81/plivo`.
 
+## Refresh Autoloader
+
+At this point some users may need to run the command `composer dump-autoload`. Alternatively, you can run `php artisan optimize`
+which should include the dump-autoload command.
+
 ##Laravel 5 Integration
 
 To use the package with Laravel 5 firstly add the Messaging service provider to the list of service providers 
@@ -26,7 +31,7 @@ Add the `Messaging` facade to your aliases array.
 
     'aliases' => [
 
-      'Messaging' => 'Midnite81\Plivo\Facades\Messaging',
+      'Messaging' => Midnite81\Plivo\Facades\Messaging::class,
       
     ];
     
