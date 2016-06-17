@@ -23,7 +23,7 @@ in `app/config/app.php`.
 
     'providers' => [
 
-      Midnite81\Plivo\MessengingServiceProvider::class
+      Midnite81\Plivo\MessagingServiceProvider::class
               
     ];
     
@@ -44,7 +44,7 @@ then dependency inject it via its contract.
 
     Messaging::get('foo');
     
-    public function __construct(Midnite81\LaravelTwoStep\Contracts\Messaging $messaging)
+    public function __construct(Midnite81\Plivo\Contracts\Services\Messaging $messaging)
     {
         $this->messaging = $messaging;
     }
