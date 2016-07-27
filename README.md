@@ -1,4 +1,4 @@
-# Plivo
+# Plivo [![Latest Stable Version](https://poser.pugx.org/midnite81/plivo/version)](https://packagist.org/packages/midnite81/plivo) [![Total Downloads](https://poser.pugx.org/midnite81/plivo/downloads)](https://packagist.org/packages/midnite81/plivo) [![Latest Unstable Version](https://poser.pugx.org/midnite81/plivo/v/unstable)](https://packagist.org/packages/midnite81/plivo) [![License](https://poser.pugx.org/midnite81/plivo/license.svg)](https://packagist.org/packages/midnite/auditor)
 A Plivo SMS integration for Laravel
 
 #Installation
