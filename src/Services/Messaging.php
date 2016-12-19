@@ -80,7 +80,11 @@ class Messaging implements MessagingContract
 
         $data = $this->getMessageData(); 
 
-        return $this->plivo->send_message($data);
+        $response =  $this->plivo->send_message($data);
+
+        $this->cleanClass();
+
+        return $response;
 
     }
 
@@ -223,5 +227,15 @@ class Messaging implements MessagingContract
     {
         return implode('<', $this->destinationNumber);
     }
+
+    /**
+     * Clean the base Class
+     */
+    protected function cleanClass()
+    {
+        $this->destinationNumber = [];
+        $this->plivo = new Plivo();
+    }
+
 
 }
