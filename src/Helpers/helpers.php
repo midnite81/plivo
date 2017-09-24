@@ -1,7 +1,7 @@
 <?php
 
-if (! function_exists('text')) {
-    function text($to, $message, $from = null) {
+if (! function_exists('plivo_send_text')) {
+    function plivo_send_text($to, $message, $from = null) {
         /**
          * @var $messaging \Midnite81\Plivo\Contracts\Services\Messaging
          */
@@ -12,6 +12,18 @@ if (! function_exists('text')) {
         if ($from != null) {
             $messaging->from($from);
         }
-        return $message->send();
+        return $messaging->send();
+    }
+}
+
+if (! function_exists('text')) {
+    function text($to, $message, $from) {
+        plivo_send_text($to, $message, $from);
+    }
+}
+
+if (! function_exists('text_message')) {
+    function text_message($to, $message, $from) {
+        plivo_send_text($to, $message, $from);
     }
 }
