@@ -70,3 +70,12 @@ You will need to add the following to your `.env` file and update these with you
     {
         $msg = $messaging->msg('Hello World!')->to('0123456789')->sendMessage(); 
     }
+    
+    Or you can simply use the helper function
+    
+    text('+44123456789', 'Just reminding you to attend the Dentist at 3.30pm');
+    Text takes three arguments, to, message and optionally from.
+    
+    If text is already defined as a function in your application you can use
+    text_message($to, $message, $from); or
+    plivo_send_text($to, $message, $from);
