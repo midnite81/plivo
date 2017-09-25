@@ -11,6 +11,8 @@ if (! function_exists('plivo_send_text')) {
         $messaging->setMessage($message);
         if ($from != null) {
             $messaging->from($from);
+        } else {
+            $messaging->from(config('plivo.source-number'));
         }
         return $messaging->send();
     }
