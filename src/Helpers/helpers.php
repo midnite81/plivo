@@ -19,13 +19,13 @@ if (! function_exists('plivo_send_text')) {
 }
 
 if (! function_exists('text')) {
-    function text($to, $message, $from) {
+    function text($to, $message, $from = null) {
         return plivo_send_text($to, $message, $from);
     }
 }
 
 if (! function_exists('text_message')) {
-    function text_message($to, $message, $from) {
+    function text_message($to, $message, $from = null) {
         return plivo_send_text($to, $message, $from);
     }
 }
