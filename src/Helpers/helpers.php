@@ -9,7 +9,7 @@ if (! function_exists('plivo_send_text')) {
 
         $messaging->to($to);
         $messaging->setMessage($message);
-        if ($from != null) {
+        if (! empty($from)) {
             $messaging->from($from);
         } else {
             $messaging->from(config('plivo.source-number'));
