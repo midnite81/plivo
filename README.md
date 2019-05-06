@@ -16,7 +16,7 @@ Run `composer install` or `composer update` to download the dependencies or you 
 At this point some users may need to run the command `composer dump-autoload`. Alternatively, you can run `php artisan optimize`
 which should include the dump-autoload command.
 
-##Laravel 5 Integration
+## Laravel 5 Integration
 
 To use the package with Laravel 5 firstly add the Messaging service provider to the list of service providers 
 in `app/config/app.php`.
