@@ -57,7 +57,7 @@ public function __construct(Midnite81\Plivo\Contracts\Services\Messaging $messag
 }
 ```
     
-##Configuration File
+## Configuration File
 
 Once you have published the config files, you will find a `Plivo.php` file in the `config` folder. You should 
 look through these settings and update these where necessary. 
